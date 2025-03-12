@@ -8,12 +8,41 @@ from reportlab.lib.pagesizes import landscape, A4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.platypus import Table, TableStyle
+from datetime import datetime
+from django.core.paginator import Paginator
 
 def dashboard(request):
-    extra_courses = ExtraCourse.objects.all()
-    years = [year for year in range(2020, 2036)]  # Dynamic years for dropdown
+    current_year = datetime.now().year
+    current_month = datetime.now().strftime("%B")
 
-    return render(request, "dashboard.html", {"extra_courses": extra_courses, "years": years})
+    months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
+
+    existing_years = set(map(int, ExtraCourse.objects.values_list("batch__year", flat=True)))
+    year_range = set(range(current_year - 5, current_year + 6))
+    all_years = sorted(existing_years.union(year_range))
+
+    selected_year = int(request.GET.get("year", current_year))
+    selected_month = request.GET.get("month", current_month)
+
+    # Fetch filtered data
+    filtered_data = ExtraCourse.objects.filter(batch__year=str(selected_year), batch__month=selected_month)
+
+    # Implement Pagination (10 records per page)
+    paginator = Paginator(filtered_data, 10)  
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "extra_courses": page_obj,  # Pass paginated data
+        "years": all_years,
+        "months": months,
+        "selected_year": selected_year,
+        "selected_month": selected_month,
+    }
+    return render(request, "dashboard.html", context)
 
 def export_monthly_pdf(request):
     month = request.GET.get("month")
@@ -39,7 +68,7 @@ def export_monthly_pdf(request):
     y_position = height - 100
 
     # Table Header & Data
-    table_data = [["Course", "Batch", "Lecturer", "Course Name", "Paid", "Pending", "Status"]]  # Header Row
+    table_data = [["Course", "Batch", "Lecturer", "Course Name", "Salary", "Paid", "Status"]]  # Header Row
 
     for record in salary_records:
         table_data.append([
@@ -48,7 +77,7 @@ def export_monthly_pdf(request):
             record.lecture_name,
             record.course_name,
             str(record.salary_paid),
-            str(record.pending_amount),
+            str(record.salary_paid),
             record.payment_status
         ])
 

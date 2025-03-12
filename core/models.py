@@ -44,7 +44,7 @@ class ExtraCourse(models.Model):
     pending_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     payment_status = models.CharField(
         max_length=20,
-        choices=[('Paid', 'Paid'), ('Pending', 'Pending'), ('Partial', 'Partial')],
+        choices=[('Paid', 'Paid'), ('Pending', 'Pending')],
         default='Pending'
     )
 
