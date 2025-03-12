@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h2>Salary Report</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Batch</th>
+                <th>Lecture</th>
+                <th>Salary Paid</th>
+                <th>Pending Amount</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for extra in extra_courses %}
+            <tr>
+                <td>{{ extra.course_name }}</td>
+                <td>{{ extra.batch }}</td>
+                <td>{{ extra.lecture_name }}</td>
+                <td>{{ extra.salary_paid }}</td>
+                <td>{{ extra.pending_amount }}</td>
+                <td>{{ extra.payment_status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

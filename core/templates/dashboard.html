@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Dashboard Overview</h2>
+
+    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <thead>
+            <tr class="bg-gray-200 text-gray-700">
+                <th class="py-2 px-4 border">Course Name</th>
+                <th class="py-2 px-4 border">Batch</th>
+                <th class="py-2 px-4 border">Lecture</th>
+                <th class="py-2 px-4 border">Course</th>
+                <th class="py-2 px-4 border">Salary Paid</th>
+                <th class="py-2 px-4 border">Pending</th>
+                <th class="py-2 px-4 border">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for extra in extra_courses %}
+            <tr class="border-b">
+                <td class="py-2 px-4 border">{{ extra.batch.course.name }}</td>
+                <td class="py-2 px-4 border">{{ extra.batch.batch_name }}</td>
+                <td class="py-2 px-4 border">{{ extra.lecture_name }}</td>
+                <td class="py-2 px-4 border">{{ extra.course_name }}</td>
+                <td class="py-2 px-4 border text-green-600 font-semibold">{{ extra.salary_paid }}</td>
+                <td class="py-2 px-4 border text-red-600 font-semibold">{{ extra.pending_amount }}</td>
+                <td class="py-2 px-4 border">
+                    {% if extra.payment_status == "Paid" %}
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs">Paid</span>
+                    {% elif extra.payment_status == "Pending" %}
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs">Pending</span>
+                    {% else %}
+                        <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs">Partial</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Export Monthly Report -->
+<div class="bg-white p-6 rounded-lg shadow-md mt-6">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Export Monthly Salary Report</h2>
+
+    <form method="GET" action="{% url 'export_monthly_pdf' %}" class="space-y-4">
+        <div>
+            <label for="month" class="block font-semibold text-gray-700">Select Month</label>
+            <select name="month" id="month" class="w-full border p-2 rounded">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="year" class="block font-semibold text-gray-700">Select Year</label>
+            <select name="year" id="year" class="w-full border p-2 rounded">
+                {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Export Monthly PDF
+        </button>
+    </form>
+</div>
+
+<!-- Export Annual Report -->
+<div class="bg-white p-6 rounded-lg shadow-md mt-6">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Export Annual Salary Report</h2>
+
+    <form method="GET" action="{% url 'export_annual_pdf' %}" class="space-y-4">
+        <div>
+            <label for="year" class="block font-semibold text-gray-700">Select Year</label>
+            <select name="year" id="year" class="w-full border p-2 rounded">
+                {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Export Annual PDF
+        </button>
+    </form>
+</div>
+{% endblock %}
