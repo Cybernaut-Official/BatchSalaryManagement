@@ -1,4 +1,4 @@
-FROM python:3.9.13
+FROM python:3.10
 
 # Allows Docker to cache installed dependencies between builds
 COPY requirements.txt requirements.txt
