@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-avex$1g-8h#_t!k7(w8m3c52opnzq6k&)p(%!p9c@2c1iw)!7-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['batchsalarymanagement.onrender.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['batchsalarymanagement.onrender.com','localhost','127.0.0.1','bsm.cybernaut.co.in']
 
 
 # Application definition
