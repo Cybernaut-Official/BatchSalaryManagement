@@ -33,7 +33,7 @@ class Batch(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.course.name}-{self.batch_name} ({self.month} {self.year})"
+        return f"{self.course.name} - ({self.month} {self.year} - {self.batch_name})"
 
 
 class ExtraCourse(models.Model):
@@ -49,4 +49,4 @@ class ExtraCourse(models.Model):
     )
 
     def __str__(self):
-        return f"{self.lecture_name} - {self.course_name}"
+        return f"{self.lecture_name} - {self.course_name} ({self.batch.month} {self.batch.year} - {self.batch.batch_name})"

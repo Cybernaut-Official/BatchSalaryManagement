@@ -9,16 +9,26 @@
 <body class="bg-gray-100">
 
     <!-- Navigation Bar -->
-    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
-        <h1 class="text-xl font-semibold">Salary Management</h1>
-
+    <nav class="logo bg-blue-600 text-white p-4 flex justify-between items-center navbar">
+        <!-- Logo Section -->
         <div>
+            <img src="https://cybernaut.co.in/wp-content/uploads/2023/03/Logo-Horizontal-Black.png" alt="Logo" class="logo w-24 h-auto">
+        </div>
+    
+        <!-- Title -->
+        <div class="nav-links">
+            <h1 class="text-xl font-semibold">Salary Management</h1>
+        </div>
+    
+        <!-- Navigation Links -->
+        <div class="nav-links">
             <a href="/" class="px-4 py-2 rounded hover:bg-blue-500">Home</a>
             <a href="{% url 'admin:index' %}" class="bg-gray-800 px-4 py-2 rounded hover:bg-gray-700">
                 ⚙ Admin Panel
             </a>
         </div>
     </nav>
+    
 
     <main class="container mx-auto p-6">
         {% block content %} {% endblock %}
