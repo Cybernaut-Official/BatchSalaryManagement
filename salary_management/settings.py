@@ -75,24 +75,25 @@ WSGI_APPLICATION = 'salary_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'ahn1305',
-#         'PASSWORD': 'csgo12345#',
-#         'HOST': 'guboshjsgbiobdewqknf.supabase.co',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'neondb',  # Extracted from the URL
+        'USER': 'neondb_owner',  # Extracted from the URL
+        'PASSWORD': 'npg_pBryNlLX6hu2',  # Extracted from the URL
+        'HOST': 'ep-billowing-dew-a5ejwlwh-pooler.us-east-2.aws.neon.tech',  # Extracted from the URL
+        'PORT': '5432',  # Default PostgreSQL port
+        'OPTIONS': {'sslmode': 'require'},  # SSL mode from URL
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

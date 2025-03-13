@@ -10,20 +10,20 @@ COPY . /code
 WORKDIR /code
 
 # Run database migrations
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+# RUN python manage.py makemigrations
+# RUN python manage.py migrate
 
 # Create a superuser automatically
-ARG SUPERUSER_USERNAME=admin
-ARG SUPERUSER_EMAIL=admin@gmail.com
-ARG SUPERUSER_PASSWORD=admin
+# ARG SUPERUSER_USERNAME=admin
+# ARG SUPERUSER_EMAIL=admin@gmail.com
+# ARG SUPERUSER_PASSWORD=admin
 
-RUN python manage.py shell <<EOF
-from django.contrib.auth import get_user_model
-User = get_user_model()
-if not User.objects.filter(username='$SUPERUSER_USERNAME').exists():
-    User.objects.create_superuser('$SUPERUSER_USERNAME', '$SUPERUSER_EMAIL', '$SUPERUSER_PASSWORD')
-EOF
+# RUN python manage.py shell <<EOF
+# from django.contrib.auth import get_user_model
+# User = get_user_model()
+# if not User.objects.filter(username='$SUPERUSER_USERNAME').exists():
+#     User.objects.create_superuser('$SUPERUSER_USERNAME', '$SUPERUSER_EMAIL', '$SUPERUSER_PASSWORD')
+# EOF
 
 EXPOSE 8000
 
